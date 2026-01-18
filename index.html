@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Player</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="brand"><img src="logo.jpg" class="logo"> MusicPlayer</div>
+
+    <nav class="menu">
+        <a id="nav-home" class="active">Home</a>
+        <a id="nav-library">Library</a>
+        <a id="nav-about">About</a>
+    </nav>
+
+    <div class="themes">
+        <button id="theme-select">Themes ▾</button>
+        <div id="theme-menu">
+            <div data-theme="A">Dark</div>
+            <div data-theme="C">Gradient</div>
+            <div data-theme="D">Neon</div>
+            <div data-theme="F">Cyber Purple</div>
+
+        </div>
+    </div>
+</header>
+
+<main>
+<section id="page-home" class="page active">
+    <input type="text" id="search" placeholder="Search songs..." class="search">
+    <div id="song-list"></div>
+</section>
+
+<section id="page-library" class="page">
+    <h2>Your Library</h2>
+    <p>No playlists yet.</p>
+</section>
+
+<section id="page-about" class="page">
+    <h2>About</h2>
+    <p>Modern Web Music Player (4 Theme Modes)</p>
+</section>
+</main>
+
+<footer class="player">
+    <input type="range" id="progress" value="0" min="0" max="100">
+    <div class="controls">
+        <span id="curr">00:00</span>
+        <button id="prev">⏮</button>
+        <button id="play">▶</button>
+        <button id="next">⏭</button>
+        <span id="dur">00:00</span>
+    </div>
+    <div id="now-playing">---</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
