@@ -1,4 +1,4 @@
-/* ==== SONG DATA ==== */
+// SONG DATA
 var songList = [
     {songName:"Radhe Radhe",songPath:"song/0.mp3"},
     {songName:"boom boom",songPath:"song/1.mp3"},
@@ -12,8 +12,6 @@ var songList = [
     {songName:"gina",songPath:"song/9.mp3"},
     {songName:"sason_ki mala",songPath:"song/10.mp3"},
 ];
-
-/* ==== DOM ==== */
 const songContainer = document.getElementById("song-list");
 const search = document.getElementById("search");
 const playBtn = document.getElementById("play");
@@ -33,12 +31,10 @@ const navAbout = document.getElementById("nav-about");
 const themeSelect = document.getElementById("theme-select");
 const themeMenu = document.getElementById("theme-menu");
 
-/* ==== STATE ==== */
 let visibleSongs = [...songList];
 let index = 0;
 let audio = new Audio(visibleSongs[0].songPath);
 
-/* ==== RENDER SONG LIST ==== */
 function render(list){
     visibleSongs = list;
     songContainer.innerHTML = list.map((s,i)=>`
@@ -50,7 +46,6 @@ function render(list){
 }
 render(songList);
 
-/* ==== PLAY SONG ==== */
 function playSong(i){
     index = i;
     audio.src = visibleSongs[index].songPath;
@@ -60,19 +55,16 @@ function playSong(i){
     updateNowPlaying();
 }
 
-/* ==== BUTTON SYNC ==== */
 function updateButtons(){
     document.querySelectorAll(".song-play").forEach((btn,i)=>{
         btn.textContent = (i === index && !audio.paused) ? "⏸" : "▶";
     });
 }
 
-/* ==== NOW PLAYING ==== */
 function updateNowPlaying(){
     nowPlaying.textContent = "Playing: " + visibleSongs[index].songName;
 }
 
-/* ==== CLICK SONG ITEM ==== */
 document.addEventListener("click",e=>{
     if(e.target.classList.contains("song-play")){
         let id = parseInt(e.target.dataset.id);
@@ -86,7 +78,6 @@ document.addEventListener("click",e=>{
     }
 });
 
-/* ==== MAIN PLAY BUTTON ==== */
 playBtn.onclick = ()=>{
     if(audio.paused){
         audio.play();
@@ -97,18 +88,15 @@ playBtn.onclick = ()=>{
     updateButtons();
 };
 
-/* ==== SEARCH ==== */
 search.oninput = ()=>{
     const v = search.value.toLowerCase();
     render(songList.filter(s=>s.songName.toLowerCase().includes(v)));
     updateButtons();
 };
 
-/* ==== NEXT / PREV ==== */
 nextBtn.onclick = ()=> playSong((index+1) % visibleSongs.length);
 prevBtn.onclick = ()=> playSong((index-1+visibleSongs.length) % visibleSongs.length);
 
-/* ==== PROGRESS BAR ==== */
 audio.ontimeupdate = ()=>{
     if(audio.duration){
         progress.value = (audio.currentTime / audio.duration) * 100;
@@ -123,14 +111,12 @@ progress.oninput = ()=>{
 
 audio.onended = ()=> nextBtn.onclick();
 
-/* ==== TIME FORMAT ==== */
 function format(t){
     let m = Math.floor(t/60);
     let s = Math.floor(t%60).toString().padStart(2,"0");
     return `${m}:${s}`;
 }
 
-/* ==== PAGE NAVIGATION ==== */
 function show(page){
     document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
     document.getElementById(page).classList.add("active");
@@ -142,17 +128,14 @@ navHome.onclick = ()=>{ show("page-home"); navHome.classList.add("active"); }
 navLibrary.onclick = ()=>{ show("page-library"); navLibrary.classList.add("active"); }
 navAbout.onclick = ()=>{ show("page-about"); navAbout.classList.add("active"); }
 
-/* ==== THEME SYSTEM ==== */
 function setTheme(t){
     document.body.className = "theme" + t;
 }
 
-// Popup open/close
 themeSelect.onclick = ()=>{
     themeMenu.classList.toggle("show");
 };
 
-// Choose theme
 themeMenu.onclick = (e)=>{
     if(e.target.dataset.theme){
         setTheme(e.target.dataset.theme);
@@ -161,5 +144,5 @@ themeMenu.onclick = (e)=>{
     }
 };
 
-/* Default theme */
+// Default theme 
 setTheme("A");
